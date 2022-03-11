@@ -19,12 +19,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run generate-meta-tag && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "app-version-check": "node ./app-version-check",
-    "preBuild": "npm run app-version-check",
-    "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js"
+    "preBuild": "npm run app-version-check"
   },
   "eslintConfig": {
     "extends": "react-app"

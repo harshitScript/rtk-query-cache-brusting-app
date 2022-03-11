@@ -11,45 +11,27 @@ import packageJson from "../package.json";
 function App() {
   const [display, setDisplay] = useState(undefined);
   return (
-    <CacheBuster
-      currentVersion={packageJson?.version}
-      isEnabled
-      isVerboseMode={true}
-      loadingComponent={
-        <div
+    <BrowserIdleAutomation>
+      <>
+        <Helmet>
+          <title>RTK-query,Cache busting app</title>
+        </Helmet>
+        <h1
           css={`
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
           `}
         >
-          <p>Busting cache....</p>
-        </div>
-      }
-    >
-      <BrowserIdleAutomation>
-        <>
-          <Helmet>
-            <title>RTK-query,Cache busting app</title>
-          </Helmet>
-          <h1
-            css={`
-              text-align: center;
-            `}
-          >
-            The Rtk-Query and Cache Busting Demo
-          </h1>
-          <b
-            css={`
-              margin: 10px;
-            `}
-            onClick={setDisplay.bind(null, "Fetch")}
-          >
-            Fetch data
-          </b>
-          {/* <button
+          The Rtk-Query and Cache Busting Demo
+        </h1>
+        <b
+          css={`
+            margin: 10px;
+          `}
+          onClick={setDisplay.bind(null, "Fetch")}
+        >
+          Fetch data
+        </b>
+        {/* <button
         css={`
           margin: 10px;
         `}
@@ -57,15 +39,14 @@ function App() {
       >
         Documentation
       </button> */}
-          {display && (
-            <SampleComponent
-              displayLabel={display}
-              onClose={setDisplay.bind(null, undefined)}
-            />
-          )}
-        </>
-      </BrowserIdleAutomation>
-    </CacheBuster>
+        {display && (
+          <SampleComponent
+            displayLabel={display}
+            onClose={setDisplay.bind(null, undefined)}
+          />
+        )}
+      </>
+    </BrowserIdleAutomation>
   );
 }
 
