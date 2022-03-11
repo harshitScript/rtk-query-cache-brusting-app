@@ -1,58 +1,89 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+// SEE store.js FILE
+import React, { useState } from "react";
+import "styled-components/macro";
+import "./App.css";
+import BrowserIdleAutomation from "./Automations/browser-idle-automation";
+import SampleComponent from "./Components/SampleComponent";
+import { Helmet } from "react-helmet";
+import CacheBuster from "react-cache-buster";
+import packageJson from "../package.json";
 
 function App() {
+  const [display, setDisplay] = useState(undefined);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+    <CacheBuster
+      currentVersion={packageJson?.version}
+      isEnabled
+      isVerboseMode={true}
+      loadingComponent={
+        <div
+          css={`
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          `}
+        >
+          <p>Busting cache....</p>
+        </div>
+      }
+    >
+      <BrowserIdleAutomation>
+        <>
+          <Helmet>
+            <title>RTK-query,Cache busting app</title>
+          </Helmet>
+          <h1
+            css={`
+              text-align: center;
+            `}
           >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+            The Rtk-Query Demonstration
+          </h1>
+          <button
+            css={`
+              margin: 10px;
+            `}
+            onClick={setDisplay.bind(null, "Fetch")}
           >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+            Fetch data
+          </button>
+          {/* <button
+        css={`
+          margin: 10px;
+        `}
+        onClick={setDisplay.bind(null, "Documentation")}
+      >
+        Documentation
+      </button> */}
+          {display && (
+            <SampleComponent
+              displayLabel={display}
+              onClose={setDisplay.bind(null, undefined)}
+            />
+          )}
+        </>
+      </BrowserIdleAutomation>
+    </CacheBuster>
   );
 }
 
 export default App;
+
+//! MAIN REQUIREMENTS
+//* createApi => creates our customized api slice.
+//* fetchBaseQuery => base query builder for ease lof requests.
+//* configureStore => To create our redux store for state management.
+//* setupListeners => To watch components lifecycle.
+
+//! WRITING OWN SCRIPT IN REACT(package.json)
+//"scripts": {
+//  "start": "react-scripts start",
+//  "build": "npm run generate-meta-tag && react-scripts build",
+//  "test": "react-scripts test",
+//  "eject": "react-scripts eject",
+//  "app-version-check": "node ./app-version-check",  //? define file location  <location_alias> : <command(in terms of node)>
+//  "preBuild": "npm run app-version-check", //? define npm script  <script_alias> : <command(in terms of npm)>
+//  "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js"
+//}
