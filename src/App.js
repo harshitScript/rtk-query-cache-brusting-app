@@ -39,16 +39,16 @@ function App() {
               text-align: center;
             `}
           >
-            The Rtk-Query Demonstration
+            The Rtk-Query and Cache Busting Demonstration
           </h1>
-          <button
+          <b
             css={`
               margin: 10px;
             `}
             onClick={setDisplay.bind(null, "Fetch")}
           >
             Fetch data
-          </button>
+          </b>
           {/* <button
         css={`
           margin: 10px;
