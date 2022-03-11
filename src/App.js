@@ -39,7 +39,7 @@ function App() {
               text-align: center;
             `}
           >
-            The Rtk-Query and Cache Busting Demonstration
+            The Rtk-Query and Cache Busting Demo
           </h1>
           <b
             css={`
